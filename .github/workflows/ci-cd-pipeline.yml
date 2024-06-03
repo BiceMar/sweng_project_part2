@@ -76,7 +76,7 @@ jobs:
 
       - name: Build Singularity container
         run: |
-          singularity --remote build my_container.sif singularity.def
+          singularity build --remote my_container.sif singularity.def
 
       - name: Test Singularity container
         run: |
