@@ -15,7 +15,7 @@ jobs:
         id: cache-singularity
         uses: actions/cache@v2
         with:
-          path: /usr/local/singularity
+          path: /usr/local/etc/singularity
           key: ${{ runner.os }}-singularity-${{ hashFiles('singularity.def') }}
           restore-keys: |
             ${{ runner.os }}-singularity-
@@ -63,7 +63,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.SINGULARITY_TOKEN }}
         run: |
-          echo "$TOKEN" | singularity remote login
+          echo $TOKEN | singularity remote login
 
       - name: Create Singularity definition file
         run: |
