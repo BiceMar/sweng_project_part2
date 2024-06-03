@@ -25,6 +25,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
+            sshpass \   
             build-essential \
             uuid-dev \
             libgpgme11-dev \
@@ -65,6 +66,10 @@ jobs:
         run: |
           sudo singularity build my_container.sif singularity.def
 
-    
+      - name: Transfer files to Galileo100
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no singularity.def a08trb63@galileo100:/path/to/target/
 
- 
+     
