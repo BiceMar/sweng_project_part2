@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        
+      - name: Read a variable
+        run: echo "My  value is ${{ vars.SINGULARITY_TOKEN }}"
 
       - name: Set up cache for Singularity
         id: cache-singularity
