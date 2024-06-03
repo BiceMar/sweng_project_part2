@@ -54,6 +54,7 @@ jobs:
           cd singularity-ce-${VERSION} && \
           ./mconfig && \
           make -C builddir && \
+          sudo mkdir -p /usr/local/singularity/bin && \
           sudo make -C builddir install
 
       - name: Create Singularity definition file
@@ -70,7 +71,7 @@ jobs:
               git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part_2.git
               sudo apt-get update && apt-get install -y mpich
 
-          %runscripts
+          %runscript
               echo \"Test run scripts\"
 
           %test
@@ -88,7 +89,7 @@ jobs:
 
       - name: Build Singularity container
         run: |
-          singularity build --remote my_container.sif singularity.def
+          singularity build my_container.sif singularity.def
 
       - name: Test Singularity container
         run: |
