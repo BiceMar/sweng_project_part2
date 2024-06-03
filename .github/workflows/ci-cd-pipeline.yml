@@ -36,7 +36,9 @@ jobs:
             cryptsetup-bin \
             libfuse-dev \
             libfuse3-dev \
-            sshpass
+            sshpass \
+            build-essential \
+            mpich
             
       - name: Install Go
         if: steps.cache-singularity.outputs.cache-hit != 'true'
