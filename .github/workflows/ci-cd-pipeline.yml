@@ -54,8 +54,13 @@ jobs:
           cd singularity-ce-${VERSION} && \
           ./mconfig && \
           make -C builddir && \
-          sudo mkdir -p /usr/local/singularity/bin && \
-          sudo make -C builddir install
+          sudo make -C builddir install &&\
+          sudo mkdir -p /usr/local/singularity && \
+          sudo cp -r builddir/* /usr/local/singularity
+
+      - name: Singularity remote login
+        run: |
+          echo "${{ secrets.SINGULARITY_TOKEN }}" | singularity remote login --token-file -
 
       - name: Create Singularity definition file
         run: |
@@ -89,7 +94,7 @@ jobs:
 
       - name: Build Singularity container
         run: |
-          singularity build my_container.sif singularity.def
+          singularity build --remote my_container.sif singularity.def
 
       - name: Test Singularity container
         run: |
