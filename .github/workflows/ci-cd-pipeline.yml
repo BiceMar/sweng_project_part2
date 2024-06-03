@@ -60,6 +60,8 @@ jobs:
         run: echo '/usr/local/singularity/bin' >> $GITHUB_PATH
 
       - name: Build Singularity container
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           sudo singularity build my_container.sif singularity.def
 
