@@ -56,11 +56,11 @@ jobs:
         run: |
           sudo singularity build my_container.sif singularity.def
 
-      #- name: Transfer files to Galileo100
-      #  env:
-      #    SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-      #  run: |
-      #    sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no my_container.sif a08trb63@login.g100.cineca.it
+      - name: Transfer files to Galileo100
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no my_container.sif a08trb63@login.g100.cineca.it:g100/home/usertrain/a08trb63/project
           
       - name: Transfer files to Galileo100
         env:
