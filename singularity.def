@@ -17,8 +17,8 @@ Stage: build
 
 %test
     echo "cloning..."
-    git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
-    if [ -d "sweng_project_part_2" ]; then
+    sudo git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
+    if [ -d "sweng_project_part2" ]; then
         echo "Repository has been successfully cloned."
     else
         echo "Repository has not been cloned."
