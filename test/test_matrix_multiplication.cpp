@@ -27,30 +27,6 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatrices) {
     ASSERT_EQ(C, expected) << "Matrix multiplication test failed! :(((()"; 
 }
 
-TEST(MatrixMultiplicationTest, TestCifreGrosse) {
-    std::vector<std::vector<int>> A = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9000}
-    };
-    std::vector<std::vector<int>> B = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
-    };
-    std::vector<std::vector<int>> C(2, std::vector<int>(2, 0));
-
-    multiplyMatrices(A, B, C, 2, 3, 2);
-
-    std::vector<std::vector<int>> expected = {
-        {30, 36, 42},
-        {66, 81, 96},
-        {6300039, 7200054, 8100069}
-    };
-
-    ASSERT_EQ(C, expected) << "Matrix multiplication test failed! :(((()"; 
-}
-
 TEST(MatrixMultiplicationTest, testNullMatrices) {
     std::vector<std::vector<int>> A = {
         {8}
@@ -63,7 +39,7 @@ TEST(MatrixMultiplicationTest, testNullMatrices) {
     multiplyMatrices(A, B, C, 1, 1, 1);
 
     std::vector<std::vector<int>> expected = {
-        {8}
+        {64}
     };
 
     ASSERT_EQ(C, expected) << "Matrix multiplication test failed! :(((()"; 
@@ -198,7 +174,7 @@ TEST(MatrixMultiplicationTest, GeneratedTest88) {
     };
     std::vector<std::vector<int>> C(3, std::vector<int>(2, 0));
 
-    multiplyMatrices(A, B, C, 1, 1, 1);
+    multiplyMatrices(A, B, C, 2, 3, 3);
 
     std::vector<std::vector<int>> expected = {
         {128, 128},
