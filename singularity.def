@@ -8,7 +8,7 @@ Stage: build
 
 %post
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part_2.git
-    sudo apt-get update && apt-get install -y mpich
+    sudo apt-get install -y mpich
 
 %runscripts
     echo "Test run scripts"
