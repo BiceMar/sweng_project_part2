@@ -25,6 +25,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
+            sshpass \
             build-essential \
             uuid-dev \
             libgpgme11-dev \
@@ -35,7 +36,6 @@ jobs:
             git \
             cryptsetup-bin \
             libfuse-dev \
-            sshpass \   
             libfuse3-dev
 
       - name: Install Go
