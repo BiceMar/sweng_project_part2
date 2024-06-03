@@ -70,7 +70,7 @@ jobs:
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no  my_container.sif a08trb63@login.g100.cineca.it
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no my_container.sif a08trb63@login.g100.cineca.it
 
       #- name: Submit job to SLURM
        # env:
