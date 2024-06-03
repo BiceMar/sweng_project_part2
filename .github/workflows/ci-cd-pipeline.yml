@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Read a variable
-        run: echo "My  value is ${{ vars.SINGULARITY_TOKEN }}"
+        run: echo "My  value is ${{ secrets.TOKEN2 }}"
 
       - name: Set up cache for Singularity
         id: cache-singularity
@@ -58,10 +58,8 @@ jobs:
               SWENG4HPC project v.1.0" > singularity.def
 
       - name: Singularity remote login
-        env:
-          TOKEN: ${{ secrets.SINGULARITY_TOKEN }}
         run: |
-          echo ${{ secrets.SINGULARITY_TOKEN }} | singularity remote login
+          echo ${{ secrets.TOKEN2 }} | singularity remote login
 
      # - name: Test Singularity container
      #   run: |
