@@ -24,7 +24,7 @@ jobs:
         env:
           SUPER_SECRET: ${{ secrets.SINGULARITY_TOKEN }}
         run: |
-          echo "$env:SUPER_SECRET"
+          echo $env:SUPER_SECRET
           
       - name: Install dependencies for Singularity
         if: steps.cache-singularity.outputs.cache-hit != 'true'
