@@ -11,12 +11,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Verify secret
-        run: |
-          if [ -z "${{ secrets.TOKEN2 }}" ] then
-            echo "Secret TOKEN2 is not set"
-          else
-            echo "Secret TOKEN2 is set"
       
       - name: Read a variable
         run: echo "My  value is ${{ secrets.TOKEN2 }}"
