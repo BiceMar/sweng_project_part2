@@ -11,9 +11,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Cache Singularity
+        id: cache-singularity
+        uses: actions/cache@v2
+        with:
+          path: /usr/local/singularity
+          key: ${{ runner.os }}-singularity-${{ hashFiles('singularity-version.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-singularity-
+
       - name: Install dependencies for Singularity
         if: steps.cache-singularity.outputs.cache-hit != 'true'
-        
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -37,7 +45,7 @@ jobs:
           wget https://dl.google.com/go/go$VERSION.$OS-$ARCH.tar.gz && \
           sudo tar -C /usr/local -xzvf go$VERSION.$OS-$ARCH.tar.gz && \
           echo 'export PATH=/usr/local/go/bin:$PATH' >> $GITHUB_ENV
-          
+
       - name: Install Singularity
         if: steps.cache-singularity.outputs.cache-hit != 'true'
         run: |
@@ -47,8 +55,10 @@ jobs:
           cd singularity-ce-${VERSION} && \
           ./mconfig && \
           make -C builddir && \
-          sudo make -C builddir install 
-          
+          sudo make -C builddir install && \
+          sudo mkdir -p /usr/local/singularity && \
+          sudo cp -r * /usr/local/singularity/
+
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y build-essential sshpass
 
@@ -64,18 +74,9 @@ jobs:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
           sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no my_container.sif job.sh a08trb63@login.g100.cineca.it:/g100/home/usertrain/a08trb63/project
-          
+
       - name: Transfer files to Galileo100
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no a08trb63@login.g100.cineca.it 'cd /g100/home/usertrain/a08trb63/project && sbatch job.sh'
-
-
-      #- name: Submit job to SLURM
-       # env:
-       #   SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-       # run: |
-       #   sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no a08trb63@login.g100.cineca.it "sbatch job.sh"
-
-     
