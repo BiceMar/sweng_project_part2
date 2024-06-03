@@ -58,6 +58,12 @@ jobs:
         run: |
           singularity build --remote my_container.sif singularity.def
 
+      - name: Singularity remote login
+        env:
+          TOKEN: ${{ secrets.SINGULARITY_TOKEN }}
+        run: |
+          echo "$TOKEN" | singularity remote login
+
       - name: Test Singularity container
         run: |
           singularity test my_container.sif
