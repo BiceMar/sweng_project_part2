@@ -35,7 +35,8 @@ jobs:
             git \
             cryptsetup-bin \
             libfuse-dev \
-            libfuse3-dev
+            libfuse3-dev \
+            sshpass
 
       - name: Install Go
         if: steps.cache-singularity.outputs.cache-hit != 'true'
