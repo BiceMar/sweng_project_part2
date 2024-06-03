@@ -11,31 +11,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup CMake
-        uses: jwlawson/actions-setup-cmake@v1
-
-      - name: Install dependencies
-        run: sudo apt-get install -y build-essential
-
-      - name: Install MPI
-        run: sudo apt-get install -y mpich
-
-      - name: Submodules init
-        run: git submodule init
-
-      - name: Submodules update
-        run: git submodule update
-
-      - name: Build
-        run: ./build.sh
-
-      - name: Run tests
-        run: ctest --test-dir build
-
       - name: Install Singularity
         run: |
+          # Ensure repositories are up-to-date
           sudo apt-get update
-          sudo apt-get install -y singularity-container
+          # Install debian packages for dependencies
+          sudo apt-get install -y \
+             autoconf \
+             automake \
+             cryptsetup \
+             git \
+             libfuse-dev \
+             libglib2.0-dev \
+             libseccomp-dev \
+             libtool \
+             pkg-config \
+             runc \
+             squashfs-tools \
+             squashfs-tools-ng \
+             uidmap \
+             wget \
+             zlib1g-dev
 
       - name: Create Singularity definition file
         run: |
@@ -65,12 +61,12 @@ jobs:
               fi
 
           %labels
-              SWENG4HPC project v.1.0" > singularity.def
+              SWENG4HPC project v.1.0" > Singularity.def
 
       - name: Build Singularity container
         run: |
-          singularity build container.sif singularity.def
+          singularity build my_container.sif Singularity.def
 
       - name: Test Singularity container
         run: |
-          singularity test container.sif
+          singularity test my_container.sif
