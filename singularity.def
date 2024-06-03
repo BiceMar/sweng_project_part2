@@ -20,7 +20,8 @@ Stage: build
 %test
     echo "start test..."
     pwd
-    cd sweng_project_part2
+    ll
+    #cd sweng_project_part2
     ./build.sh
     ctest --test-dir build
 
