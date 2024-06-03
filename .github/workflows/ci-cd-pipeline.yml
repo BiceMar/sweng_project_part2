@@ -61,31 +61,33 @@ jobs:
 
       - name: Create Singularity definition file
         run: |
-          echo "Bootstrap: library
-          From: Ubuntu:18.04
+          echo "Bootstrap: docker
+          From: ubuntu:20.04
           Stage: build
-
+          
           %setup
               touch /file1
-              touch \${SINGULARITY_ROOTFS}/file2
-
+              touch ${SINGULARITY_ROOTFS}/file2
+          
           %post
+              apt-get update
+              apt-get install -y git
+              apt-get install -y mpich
               git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part_2.git
-              sudo apt-get update && apt-get install -y mpich
-
-          %runscripts
-              echo \"Test run scripts\"
-
+          
+          %runscript
+              echo "Test run scripts"
+          
           %test
-              echo \"looking for MPI...\"
-              mpich
-              grep -q NAME=\"Ubuntu\" /etc/os-release
-              if [ \$? -eq 0]; then
-                  echo \"Container base is Ubuntu as expected.\"
-              else
-                  echo \"Container base is not Ubuntu.\"
-              fi
-
+              echo "looking for MPI..."
+          mpich
+          grep -q NAME=\"Ubuntu\" /etc/os-release
+          if [ $? -eq 0 ]; then
+              echo "Container base is Ubuntu as expected."
+          else
+              echo "Container base is not Ubuntu."
+          fi
+          
           %labels
               SWENG4HPC project v.1.0" > singularity.def
 
