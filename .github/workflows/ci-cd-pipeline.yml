@@ -65,12 +65,12 @@ jobs:
               fi
 
           %labels
-              SWENG4HPC project v.1.0" > Singularity.def
+              SWENG4HPC project v.1.0" > singularity.def
 
       - name: Build Singularity container
         run: |
-          singularity build my_container.sif Singularity.def
+          singularity build container.sif singularity.def
 
       - name: Test Singularity container
         run: |
-          singularity test my_container.sif
+          singularity test container.sif
