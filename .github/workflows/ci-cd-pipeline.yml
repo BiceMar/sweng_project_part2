@@ -19,12 +19,11 @@ jobs:
           key: ${{ runner.os }}-singularity-${{ hashFiles('singularity.def') }}
           restore-keys: |
             ${{ runner.os }}-singularity-
-
-      - shell: pwsh
+            
         env:
           SUPER_SECRET: ${{ secrets.SINGULARITY_TOKEN }}
         run: |
-          echo $env:SUPER_SECRET
+          echo $SUPER_SECRET
           
       - name: Install dependencies for Singularity
         if: steps.cache-singularity.outputs.cache-hit != 'true'
@@ -66,8 +65,10 @@ jobs:
         run: echo '/usr/local/singularity/bin' >> $GITHUB_PATH
 
       - name: Singularity remote login
+        env:
+          TOKEN: ${{ secrets.SINGULARITY_TOKEN }}
         run: |
-          echo "${{ secrets.SINGULARITY_TOKEN }}" | singularity remote login
+          echo "$TOKEN" | singularity remote login
 
       - name: Create Singularity definition file
         run: |
