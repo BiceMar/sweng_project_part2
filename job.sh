@@ -6,10 +6,6 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --account=a08trb63
-
-# Load Singularity module
-module load singularity
 
 # Run the containerized application
 #singularity exec /path/to/my_container.sif /path/to/matrix_multiplication_program
