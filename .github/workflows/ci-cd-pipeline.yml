@@ -19,11 +19,6 @@ jobs:
           key: ${{ runner.os }}-singularity-${{ hashFiles('singularity.def') }}
           restore-keys: |
             ${{ runner.os }}-singularity-
-            
-        env:
-          SUPER_SECRET: ${{ secrets.SINGULARITY_TOKEN }}
-        run: |
-          echo $SUPER_SECRET
           
       - name: Install dependencies for Singularity
         if: steps.cache-singularity.outputs.cache-hit != 'true'
