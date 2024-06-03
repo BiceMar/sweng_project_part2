@@ -54,8 +54,7 @@ jobs:
           cd singularity-ce-${VERSION} && \
           ./mconfig && \
           make -C builddir && \
-          sudo make -C builddir install && \
-          sudo mv /usr/local/bin/singularity /usr/local/singularity/bin/singularity
+          sudo make -C builddir install 
 
       - name: Add Singularity to PATH
         run: echo '/usr/local/singularity/bin' >> $GITHUB_PATH
