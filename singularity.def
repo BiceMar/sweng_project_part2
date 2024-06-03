@@ -1,5 +1,5 @@
-Bootstrap: library
-From: Ubuntu:18.04
+Bootstrap: docker
+From: ubuntu:20.04
 Stage: build
 
 %setup
@@ -7,10 +7,12 @@ Stage: build
     touch ${SINGULARITY_ROOTFS}/file2
 
 %post
+    apt-get update
+    apt-get install -y git
+    apt-get install -y mpich
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part_2.git
-    sudo apt-get install -y mpich
 
-%runscripts
+%runscript
     echo "Test run scripts"
 
 %test
@@ -22,6 +24,6 @@ Stage: build
     else
         echo "Container base is not Ubuntu."
     fi
-    
+
 %labels
     SWENG4HPC project v.1.0
