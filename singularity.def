@@ -1,6 +1,5 @@
 Bootstrap: docker
 From: ubuntu:20.04
-ARG DEBIAN_FRONTEND=noninteractive
 Stage: build
 
 %setup
@@ -8,6 +7,7 @@ Stage: build
     touch ${SINGULARITY_ROOTFS}/file2
 
 %post
+    export DEBIAN_FRONTEND=noninteractive
     apt-get update
     apt-get install -y git
     apt-get install -y mpich
