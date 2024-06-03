@@ -172,9 +172,9 @@ TEST(MatrixMultiplicationTest, GeneratedTest88) {
         {8, 8},
         {8, 8}
     };
-    std::vector<std::vector<int>> C(3, std::vector<int>(2, 0));
+    std::vector<std::vector<int>> C(2, std::vector<int>(2, 0));
 
-    multiplyMatrices(A, B, C, 2, 3, 3);
+    multiplyMatrices(A, B, C, 2, 2, 2);
 
     std::vector<std::vector<int>> expected = {
         {128, 128},
