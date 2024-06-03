@@ -11,27 +11,36 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install dependencies for Singularity
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            uuid-dev \
+            libgpgme11-dev \
+            squashfs-tools \
+            libseccomp-dev \
+            wget \
+            pkg-config \
+            git \
+            cryptsetup-bin
+
+      - name: Install Go
+        run: |
+          wget https://dl.google.com/go/go1.20.3.linux-amd64.tar.gz
+          sudo tar -C /usr/local -xzf go1.20.3.linux-amd64.tar.gz
+          echo 'export PATH=$PATH:/usr/local/go/bin' >> $GITHUB_ENV
+
       - name: Install Singularity
         run: |
-          # Ensure repositories are up-to-date
-          sudo apt-get update
-          # Install debian packages for dependencies
-          sudo apt-get install -y \
-             autoconf \
-             automake \
-             cryptsetup \
-             git \
-             libfuse-dev \
-             libglib2.0-dev \
-             libseccomp-dev \
-             libtool \
-             pkg-config \
-             runc \
-             squashfs-tools \
-             squashfs-tools-ng \
-             uidmap \
-             wget \
-             zlib1g-dev
+          export PATH=$PATH:/usr/local/go/bin
+          export VERSION=3.8.3 && \
+          wget https://github.com/sylabs/singularity/releases/download/v${VERSION}/singularity-${VERSION}.tar.gz && \
+          tar -xzf singularity-${VERSION}.tar.gz && \
+          cd singularity-${VERSION} && \
+          ./mconfig && \
+          make -C builddir && \
+          sudo make -C builddir install
 
       - name: Create Singularity definition file
         run: |
