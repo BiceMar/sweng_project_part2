@@ -58,7 +58,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.SINGULARITY_TOKEN }}
         run: |
-          echo $TOKEN | singularity remote login
+          echo ${TOKEN} | singularity remote login
 
       - name: Test Singularity container
         run: |
