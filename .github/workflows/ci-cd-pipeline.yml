@@ -58,11 +58,14 @@ jobs:
           %labels
               SWENG4HPC project v.1.0" > singularity.def
 
-      - name: Singularity remote login
-        env:
-          TOKEN: ${{ secrets.TOKEN2 }}
+
+      - name: Build Singularity container
         run: |
-          echo $TOKEN | singularity remote login
+          singularity build my_container.sif singularity.def
+
+      - name: Test Singularity container
+        run: |
+          singularity test my_container.sif
 
      # - name: Test Singularity container
      #   run: |
