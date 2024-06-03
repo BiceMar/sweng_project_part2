@@ -27,20 +27,22 @@ jobs:
 
       - name: Install Go
         run: |
-          wget https://dl.google.com/go/go1.20.3.linux-amd64.tar.gz
-          sudo tar -C /usr/local -xzf go1.20.3.linux-amd64.tar.gz
-          echo 'export PATH=$PATH:/usr/local/go/bin' >> $GITHUB_ENV
+          export VERSION=1.21.0 OS=linux ARCH=amd64 && \
+          wget https://dl.google.com/go/go$VERSION.$OS-$ARCH.tar.gz && \
+          sudo tar -C /usr/local -xzvf go$VERSION.$OS-$ARCH.tar.gz && \
+          rm go$VERSION.$OS-$ARCH.tar.gz
+          
+      - name: Set the Environment variable PATH to point to Go
+        run: |
+          echo 'export PATH=/usr/local/go/bin:$PATH' >> ~/.bashrc && \
+          source ~/.bashrc
 
       - name: Install Singularity
         run: |
-          export PATH=$PATH:/usr/local/go/bin
           export VERSION=4.1.0 && \
           wget https://github.com/sylabs/singularity/releases/download/v${VERSION}/singularity-ce-${VERSION}.tar.gz && \
           tar -xzf singularity-ce-${VERSION}.tar.gz && \
-          cd singularity-ce-${VERSION} && \
-          ./mconfig && \
-          make -C builddir && \
-          sudo make -C builddir install
+          cd singularity-ce-${VERSION}
 
       - name: Create Singularity definition file
         run: |
