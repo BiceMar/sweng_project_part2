@@ -16,14 +16,13 @@ Stage: build
     echo "Test run scripts"
 
 %test
+    echo "cloning..."
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part_2.git
-    echo "looking for MPI..."
-    mpich
-    grep -q NAME=\"Ubuntu\" /etc/os-release
-    if [ $? -eq 0 ]; then
-        echo "Container base is Ubuntu as expected."
+    if [ -d "sweng_project_part_2" ]; then
+        echo "Repository has been successfully cloned."
     else
-        echo "Container base is not Ubuntu."
+        echo "Repository has not been cloned."
+        exit 1
     fi
 
 %labels
