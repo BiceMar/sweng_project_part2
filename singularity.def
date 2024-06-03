@@ -15,15 +15,14 @@ Stage: build
 
 %runscript
     echo "Test run scripts"
+    
 
 %test
-    echo "cloning..."
-    if [ -d "sweng_project_part2" ]; then
-        echo "Repository has been successfully cloned."
-    else
-        echo "Repository has not been cloned."
-        exit 1
-    fi
+    echo "start test..."
+    pwd
+    cd sweng_project_part2
+    ./build.sh
+    ctest --test-dir build
 
 %labels
     SWENG4HPC project v.1.0
