@@ -13,4 +13,5 @@ module load singularity
 
 # Run the containerized application
 #singularity exec /path/to/my_container.sif /path/to/matrix_multiplication_program
+singularity test my_container.sif
 echo "Testtttt!"
