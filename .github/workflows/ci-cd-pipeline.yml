@@ -65,11 +65,17 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           sudo singularity build my_container.sif singularity.def
-
+          
       - name: Transfer files to Galileo100
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no my_container.sif a08trb63@login.g100.cineca.it
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no  my_container.sif a08trb63@login.g100.cineca.it:/path/to/target/
+
+      #- name: Submit job to SLURM
+       # env:
+       #   SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+       # run: |
+       #   sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no a08trb63@login.g100.cineca.it "sbatch job.sh"
 
      
