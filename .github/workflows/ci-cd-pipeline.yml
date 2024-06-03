@@ -23,7 +23,9 @@ jobs:
             wget \
             pkg-config \
             git \
-            cryptsetup-bin
+            cryptsetup-bin \
+            libfuse-dev \
+            libfuse3-dev
 
       - name: Install Go
         run: |
