@@ -54,11 +54,7 @@ jobs:
           cd singularity-ce-${VERSION} && \
           ./mconfig && \
           make -C builddir && \
-          sudo make -C builddir install && \
-          sudo mv /usr/local/bin/singularity /usr/local/singularity/bin/singularity
-
-      - name: Add Singularity to PATH
-        run: echo '/usr/local/singularity/bin' >> $GITHUB_PATH
+          sudo make -C builddir install
 
       - name: Create Singularity definition file
         run: |
@@ -93,6 +89,10 @@ jobs:
       - name: Build Singularity container
         run: |
           singularity build --remote my_container.sif singularity.def
+
+      - name: Test Singularity container
+        run: |
+          singularity test my_container.sif
 
     
 
