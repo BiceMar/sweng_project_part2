@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 
 on:
-  [push, pull_request] 
+  [push, pull_request]
 
 jobs:
   build-and-test:
@@ -22,13 +22,55 @@ jobs:
 
       - name: Submodules init
         run: git submodule init
-        
+
       - name: Submodules update
         run: git submodule update
-        
+
       - name: Build
         run: ./build.sh
 
       - name: Run tests
         run: ctest --test-dir build
 
+      - name: Install Singularity
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y singularity-container
+
+      - name: Create Singularity definition file
+        run: |
+          echo "Bootstrap: library
+          From: Ubuntu:18.04
+          Stage: build
+
+          %setup
+              touch /file1
+              touch \${SINGULARITY_ROOTFS}/file2
+
+          %post
+              git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part_2.git
+              sudo apt-get update && apt-get install -y mpich
+
+          %runscripts
+              echo \"Test run scripts\"
+
+          %test
+              echo \"looking for MPI...\"
+              mpich
+              grep -q NAME=\"Ubuntu\" /etc/os-release
+              if [ \$? -eq 0 ]; then
+                  echo \"Container base is Ubuntu as expected.\"
+              else
+                  echo \"Container base is not Ubuntu.\"
+              fi
+
+          %labels
+              SWENG4HPC project v.1.0" > Singularity.def
+
+      - name: Build Singularity container
+        run: |
+          singularity build my_container.sif Singularity.def
+
+      - name: Test Singularity container
+        run: |
+          singularity test my_container.sif
