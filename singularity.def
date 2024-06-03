@@ -11,7 +11,8 @@ Stage: build
     apt-get update
     apt-get install -y git
     apt-get install -y mpich
-     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
+    git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
+    ./sweng_project_part2.git/build.sh
 
 %runscript
     echo "Test run scripts"
@@ -22,7 +23,6 @@ Stage: build
     pwd
     ls
     cd sweng_project_part2
-    ./build.sh
     ctest --test-dir build
 
 %labels
