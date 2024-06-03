@@ -13,7 +13,7 @@ jobs:
         
       - name: Verify secret
         run: |
-          if [ -z "${{ secrets.TOKEN2 }}" ]; then
+          if [ -z "${{ secrets.TOKEN2 }}" ] then
             echo "Secret TOKEN2 is not set"
           else
             echo "Secret TOKEN2 is set"
