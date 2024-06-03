@@ -11,13 +11,12 @@ Stage: build
     apt-get update
     apt-get install -y git
     apt-get install -y mpich
-    #git clone --recurse-submodules https://\${GH_PAT}@github.com/BiceMar/sweng_project_part_2.git
-
 
 %runscript
     echo "Test run scripts"
 
 %test
+    #git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part_2.git
     echo "looking for MPI..."
     mpich
     grep -q NAME=\"Ubuntu\" /etc/os-release
