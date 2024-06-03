@@ -61,7 +61,7 @@ jobs:
 
       - name: Singularity remote login
         run: |
-          echo "${{ secrets.SINGULARITY_TOKEN }}" | singularity remote login --token-file -
+          echo "${{ secrets.SINGULARITY_TOKEN }}" | singularity remote login
 
       - name: Create Singularity definition file
         run: |
