@@ -15,6 +15,7 @@ Stage: build
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
     cd sweng_project_part2
     ./build.sh
+    ctest --test-dir build
 
 %runscript
     echo "Test run scripts"
@@ -24,8 +25,8 @@ Stage: build
     echo "start test..."
     pwd
     ls
-    cd build
-    ctest --test-dir build
+    #cd build
+    #ctest --test-dir build
 
 %labels
     SWENG4HPC project v.1.0
