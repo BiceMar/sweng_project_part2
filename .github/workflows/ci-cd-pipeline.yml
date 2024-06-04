@@ -23,14 +23,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-singularity-
 
-      - name: Install Singularity if not cached
-        run: |
-          if ! command -v singularity &> /dev/null; then
-            sudo apt-get update
-            sudo apt-get install -y singularity-container
-            sudo cp $(which singularity) /usr/local/singularity/
-          fi
-
       - name: Verify Singularity Installation
         run: |
           export PATH=$PATH:/usr/local/singularity
