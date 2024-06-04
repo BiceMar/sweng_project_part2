@@ -11,6 +11,7 @@ Stage: build
     apt-get update
     apt-get install -y git
     apt-get install -y mpich
+    apt-get install -y cmake  # Install cmake
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
     cd sweng_project_part2
     ./build.sh
@@ -23,7 +24,7 @@ Stage: build
     echo "start test..."
     pwd
     ls
-    cd sweng_project_part2
+    cd build
     ctest --test-dir build
 
 %labels
