@@ -10,10 +10,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        
       - name: Change permissions
         run: sudo mkdir -p /usr/local/singularity && sudo chown -R $USER:$USER /usr/local/singularity
-      
+
       - name: Cache Singularity
         id: cache-singularity
         uses: actions/cache@v2
@@ -22,6 +22,20 @@ jobs:
           key: ${{ runner.os }}-singularity-${{ hashFiles('singularity-version.txt') }}
           restore-keys: |
             ${{ runner.os }}-singularity-
+
+      - name: Install Singularity if not cached
+        run: |
+          if ! command -v singularity &> /dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y singularity-container
+            sudo cp $(which singularity) /usr/local/singularity/
+          fi
+
+      - name: Verify Singularity Installation
+        run: |
+          export PATH=$PATH:/usr/local/singularity
+          which singularity
+          singularity --version
 
 
       - name: Install dependencies for Singularity
