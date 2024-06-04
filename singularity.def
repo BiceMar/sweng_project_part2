@@ -1,32 +1,42 @@
 Bootstrap: docker
 From: ubuntu:20.04
-Stage: build
 
 %setup
-    touch /file1
-    touch ${SINGULARITY_ROOTFS}/file2
+    # Commands to run at setup stage
+    touch ${SINGULARITY_ROOTFS}/file1
+
+%files
+    . /opt/build_files
 
 %post
     export DEBIAN_FRONTEND=noninteractive
-    apt-get update
-    apt-get install -y git
-    apt-get install -y mpich
-    apt-get install -y cmake  # Install cmake
+    # Commands to run at build time
+    apt-get update && apt-get install -y cmake git mpich build-essential openmpi-bin openmpi-common libopenmpi-dev
+    #mkdir -p /opt/my_project/data
+    echo "cloning the repo..."
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
+    #chmod +x /sweng_project_part2/build.sh
+    #cd /opt/build_files
+    #rm -rf build
     cd sweng_project_part2
     ./build.sh
-    ctest --test-dir build
-
-%runscript
-    echo "Test run scripts"
-    
-
-%test
-    echo "start test..."
-    pwd
-    ls
+    #cd /sweng_project_part2
     #cd build
     #ctest --test-dir build
 
+%test
+    # Commands to run when the container is executed
+    echo "Test run scripts"
+
+%runscript
+    # Commands to test the container functionality
+    echo "running tests..."
+    cd sweng_project_part2
+    ./build.sh
+    cd build
+    ctest --test-dir build
+
 %labels
+    # Metadata labels
     SWENG4HPC project v.1.0
+
