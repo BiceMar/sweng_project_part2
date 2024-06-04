@@ -19,6 +19,8 @@ From: ubuntu:20.04
     #cd /opt/build_files
     #rm -rf build
     cd sweng_project_part2
+    git submodule init
+    git submodule update
     ./build.sh
     #cd /sweng_project_part2
     #cd build
