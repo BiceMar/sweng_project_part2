@@ -28,10 +28,6 @@ From: ubuntu:20.04
 
 %test
     # Commands to run when the container is executed
-    echo "Test run scripts"
-
-%runscript
-    # Commands to test the container functionality
     echo "running tests..."
     cd sweng_project_part2
     ./build.sh
