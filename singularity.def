@@ -13,7 +13,7 @@ Stage: build
     apt-get install -y mpich
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
     cd sweng_project_part2
-    .build.sh
+    ./build.sh
 
 %runscript
     echo "Test run scripts"
