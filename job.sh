@@ -8,6 +8,6 @@
 #SBATCH --cpus-per-task=4
 
 # Run the containerized application
-#singularity exec /path/to/my_container.sif /path/to/matrix_multiplication_program
-echo "Testtttt!"
+echo "Job started!"
 singularity test my_container.sif
+rm -rf sweng_project_part2
