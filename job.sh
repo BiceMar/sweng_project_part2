@@ -9,4 +9,4 @@
 
 # Run the containerized application
 echo "Job started!"
-singularity run my_container.sif
+singularity exec prova2.sif mpirun -np 2 /sweng_project_part2/build/main
