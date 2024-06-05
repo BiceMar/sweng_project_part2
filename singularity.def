@@ -10,9 +10,7 @@ From: ubuntu:22.04
     # Commands to run when the container is executed
     echo "cloning..."
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
-    #it submodule init
-    #git submodule update
-    cd sweng_project_part2
+    cd sweng_project_part2/
     ./build.sh
 
 %runscript
