@@ -10,12 +10,12 @@ From: ubuntu:22.04
     # Commands to run when the container is executed
     echo "cloning..."
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
-    cd sweng_project_part2/
+    cd sweng_project_part2
     ./build.sh
 
 %runscript
     echo "running main..."
-    cd sweng_project_part2
+    cd -/sweng_project_part2
     mpirun -n 2 ./build/main 
     echo "main finished..."
     #echo "running tests..."
