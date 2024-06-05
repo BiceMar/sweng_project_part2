@@ -14,11 +14,10 @@ From: ubuntu:22.04
     #git submodule update
     cd sweng_project_part2
     ./build.sh
-    cd build
 
 %runscript
     echo "running main..."
-    cd sweng_project_part2
+    cd sweng_project_part2/build
     mpirun -n 2 ./main 
     echo "main finished..."
     #echo "running tests..."
