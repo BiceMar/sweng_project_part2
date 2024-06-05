@@ -18,6 +18,7 @@ From: ubuntu:22.04
 
 %runscript
     echo "running main..."
+    cd sweng_project_part2
     mpirun -n 2 ./main 
     echo "main finished..."
     #echo "running tests..."
