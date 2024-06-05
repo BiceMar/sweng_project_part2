@@ -34,7 +34,6 @@ jobs:
 
             
       - name: Build
-        run: cmake --build build
         run: ./build.sh
 
       - name: Run tests
