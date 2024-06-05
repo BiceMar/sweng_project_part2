@@ -11,7 +11,7 @@ From: ubuntu:20.04
 %post
     export DEBIAN_FRONTEND=noninteractive
     # Commands to run at build time
-    apt-get update && apt-get install -y cmake git mpich build-essential openmpi-bin openmpi-common libopenmpi-dev
+    apt-get update && apt-get install -y cmake git mpich build-essential libmpich-dev
 
 %test
     # Commands to run when the container is executed
