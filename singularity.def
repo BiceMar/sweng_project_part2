@@ -1,25 +1,28 @@
 Bootstrap: docker
 From: ubuntu:22.04
 
+
 %post
     export DEBIAN_FRONTEND=noninteractive
     # Commands to run at build time
-    apt -y update
-    apt install -y cmake git mpich libmpich-dev
+    apt-get update && apt-get install -y cmake git mpich build-essential libmpich-dev libopenmpi-dev
 
     # Commands to run when the container is executed
     echo "cloning..."
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
-    cd sweng_project_part2
+    cd sweng_project_part2/
     ./build.sh
 
 %runscript
     echo "running main..."
     cd /sweng_project_part2
-    mpirun -n 2 ./build/main 
+    mpirun -n 2  ./build/main
     echo "main finished..."
+    #echo "running tests..."
+    #mpirun -n 2 ./build/test_multiplication
+    #echo "tests finished..."
 
 %labels
     # Metadata labels
-    SWENG4HPC project v.1.0
+    SWENG4HPC project v.1.0
 
