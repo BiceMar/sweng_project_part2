@@ -65,8 +65,8 @@ jobs:
         run: |
           sudo singularity build my_container.sif singularity.def
 
-      #- name: Test Singularity image
-      #  run: singularity run my_container.sif
+      - name: Test Singularity image
+        run: singularity run my_container.sif
 
       - name: Transfer files to Galileo100
         env:
