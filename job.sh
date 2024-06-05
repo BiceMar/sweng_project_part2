@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=samu
+#SBATCH --job-name=run-container
 #SBATCH --partition=g100_all_serial
 #SBATCH --account=tra24_sepolimi
 #SBATCH --output=result.txt
