@@ -19,11 +19,14 @@ From: ubuntu:20.04
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
     #it submodule init
     #git submodule update
-    echo "running tests..."
     cd sweng_project_part2
     ./build.sh
     cd build
-    mpirun -np 4 ctest --test-dir build
+    echo "running main..."
+    mpirun -n 2 ./main 
+    echo "main finished..."
+    echo "running tests..."
+    mpirun -n 2 ./test_multiplication
     echo "tests finished..."
 
 %labels
