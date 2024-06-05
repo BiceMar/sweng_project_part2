@@ -10,4 +10,4 @@
 # Run the containerized application
 echo "Job started!"
 singularity run my_container.sif
-rm -rf sweng_project_part2
+#rm -rf sweng_project_part2
