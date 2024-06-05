@@ -1,18 +1,16 @@
 name: CI/CD Pipeline
 
-on:
-  [push, pull_request]
+on: [push, pull_request]
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-        
-      - name: Install dependencies for Singularity
+ 
+      - name: Install dependencies
         if: steps.cache-singularity.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update
@@ -32,18 +30,12 @@ jobs:
             build-essential \
             mpich
 
-      - name: Submodules init
-        run: git submodule init
-        
-
-      - name: Submodules update
-        run: git submodule update
-            
-      - name: Build
-        run: ./build.sh
-
-      - name: Run tests
-        run: ctest --test-dir build
+      - name: Build and test project
+        run: |
+          git submodule init
+          git submodule update
+          ./build.sh
+          ctest --test-dir build
             
       - name: Install Go
         if: steps.cache-singularity.outputs.cache-hit != 'true'
@@ -82,7 +74,7 @@ jobs:
         run: |
           sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no my_container.sif job.sh a08trb63@login.g100.cineca.it:/g100/home/usertrain/a08trb63/sweng_part2
 
-      - name: Transfer files to Galileo100
+      - name: Run job on Galileo100
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
