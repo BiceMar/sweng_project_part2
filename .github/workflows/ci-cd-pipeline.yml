@@ -54,7 +54,7 @@ jobs:
           cd singularity-ce-${VERSION} && \
           ./mconfig && \
           make -C builddir && \
-          sudo make -C builddir install && \u
+          sudo make -C builddir install && \
           sudo mkdir -p /usr/local/singularity && \
           sudo cp -r * /usr/local/singularity/
 
@@ -78,4 +78,4 @@ jobs:
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no a08trb63@login.g100.cineca.it 'cd /g100/home/usertrain/a08trb63/sweng_part2 && sbatch job.sh'
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no a08trb63@login.g100.cineca.it 'cd /g100/home/usertrain/a08trb63/sweng_part2 && sbatch job.sh && sleep 10 && cat result.txt && exit'
