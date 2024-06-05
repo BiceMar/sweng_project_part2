@@ -11,6 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+        
       - name: Install dependencies for Singularity
         if: steps.cache-singularity.outputs.cache-hit != 'true'
         run: |
@@ -30,6 +31,13 @@ jobs:
             sshpass \
             build-essential \
             mpich
+
+            
+      - name: Build
+        run: ./build.sh
+        
+      - name: Run tests
+        run: ctest --test-dir build
             
       - name: Install Go
         if: steps.cache-singularity.outputs.cache-hit != 'true'
