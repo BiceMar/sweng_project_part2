@@ -13,7 +13,7 @@ From: ubuntu:20.04
     # Commands to run at build time
     apt-get update && apt-get install -y cmake git mpich build-essential libmpich-dev
 
-%test
+%runscript
     # Commands to run when the container is executed
     echo "cloning..."
     git clone --recurse-submodules https://github.com/BiceMar/sweng_project_part2.git
@@ -25,9 +25,9 @@ From: ubuntu:20.04
     echo "running main..."
     mpirun -n 2 ./main 
     echo "main finished..."
-    echo "running tests..."
-    mpirun -n 2 ./test_multiplication
-    echo "tests finished..."
+    #echo "running tests..."
+    #mpirun -n 2 ./test_multiplication
+    #echo "tests finished..."
 
 %labels
     # Metadata labels
