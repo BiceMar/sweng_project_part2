@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=matrix_multiplication
+#SBATCH --job-name=samu
 #SBATCH --output=result.txt
 #SBATCH --error=error.txt
 #SBATCH --time=00:10:00
@@ -9,4 +9,5 @@
 
 # Run the containerized application
 echo "Job started!"
-singularity exec prova2.sif mpirun -np 2 /sweng_project_part2/build/main
+
+singularity run -C my_container.sif
