@@ -32,6 +32,12 @@ jobs:
             build-essential \
             mpich
 
+      - name: Submodules init
+        run: git submodule init
+        
+
+      - name: Submodules update
+        run: git submodule update
             
       - name: Build
         run: ./build.sh
