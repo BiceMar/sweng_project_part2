@@ -1,11 +1,11 @@
 Bootstrap: docker
 From: ubuntu:22.04
 
-
 %post
     export DEBIAN_FRONTEND=noninteractive
     # Commands to run at build time
-    apt-get update && apt-get install -y cmake git mpich build-essential libmpich-dev libopenmpi-dev
+    apt -y update
+    apt install -y cmake git mpich libmpich-dev
 
     # Commands to run when the container is executed
     echo "cloning..."
@@ -16,11 +16,8 @@ From: ubuntu:22.04
 %runscript
     echo "running main..."
     cd /sweng_project_part2
-    mpirun -n 2 ./build/main 
+    ./build/main 
     echo "main finished..."
-    #echo "running tests..."
-    #mpirun -n 2 ./build/test_multiplication
-    #echo "tests finished..."
 
 %labels
     # Metadata labels
